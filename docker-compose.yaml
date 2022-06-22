@@ -48,7 +48,7 @@ x-airflow-common:
   # build: .
   environment:
     &airflow-common-env
-    AIRFLOW__CORE__EXECUTOR: CeleryExecutor
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
     AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
     # For backward compatibility, with Airflow <2.3
     AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
@@ -121,27 +121,6 @@ services:
       interval: 10s
       timeout: 10s
       retries: 5
-    restart: always
-    depends_on:
-      <<: *airflow-common-depends-on
-      airflow-init:
-        condition: service_completed_successfully
-
-  airflow-worker:
-    <<: *airflow-common
-    command: celery worker
-    healthcheck:
-      test:
-        - "CMD-SHELL"
-        - 'celery --app airflow.executors.celery_executor.app inspect ping -d "celery@$${HOSTNAME}"'
-      interval: 10s
-      timeout: 10s
-      retries: 5
-    environment:
-      <<: *airflow-common-env
-      # Required to handle warm shutdown of the celery workers properly
-      # See https://airflow.apache.org/docs/docker-stack/entrypoint.html#signal-propagation
-      DUMB_INIT_SETSID: "0"
     restart: always
     depends_on:
       <<: *airflow-common-depends-on

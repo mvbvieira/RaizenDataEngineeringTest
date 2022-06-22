@@ -14,7 +14,7 @@ Requirements
 Tools requires the following to run:
 
   * Docker
-  * docker-compose
+  * [docker-compose](docker-compose) 1.29.2
 
 Installation
 ------------
@@ -22,7 +22,7 @@ Installation
 Clone this repository and go to directory.
 
 ```bash
-git clone https://github.com/mvbvieira/RaizenDataEngineeringTest.git
+git clone git@github.com:mvbvieira/RaizenDataEngineeringTest.git
 cd RaizenDataEngineeringTest/
 ```
 
