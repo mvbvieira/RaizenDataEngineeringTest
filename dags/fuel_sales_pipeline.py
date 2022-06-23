@@ -4,6 +4,8 @@ from airflow.operators.python import BranchPythonOperator
 from airflow.operators.dummy import DummyOperator
 from os.path import exists
 from operators.dowload_file_operator import DownloadFileOperator
+from operators.convert_xlsx_operator import ConvertXlsxOperator
+
 
 TARGET_DIR = "/opt/raizen/data/"
 TARGET_FILE = "vendas-combustiveis-m3.xls"
@@ -34,8 +36,15 @@ with DAG("fuel_sales_pipeline",
     target_file=TARGET_FILE,
     dag=dag)
 
+  convert_file = ConvertXlsxOperator(
+    task_id='convert_to_xlsx',
+    source_file=SOURCE_FILE,
+    target_dir=TARGET_DIR,
+    trigger_rule='one_success',
+    dag=dag)
+
   needs_download_file = DummyOperator(task_id='needs_download_file')
   file_already_dowloaded = DummyOperator(task_id='file_already_dowloaded')
 
-verify_file_dowloaded >> needs_download_file >> download_file 
-verify_file_dowloaded >> file_already_dowloaded
+verify_file_dowloaded >> needs_download_file >> download_file >> convert_file
+verify_file_dowloaded >> file_already_dowloaded >> convert_file
