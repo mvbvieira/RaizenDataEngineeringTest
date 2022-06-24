@@ -1,4 +1,4 @@
 # ignore all logs
 /logs/*
 /dags/__pycache__
-/data/*
+/data/parquet/*
