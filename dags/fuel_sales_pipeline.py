@@ -8,7 +8,7 @@ from operators.convert_xlsx_operator import ConvertXlsxOperator
 from scripts.convert_to_parquet import convert_to_parquet
 
 
-TARGET_DIR = "/opt/raizen/data/"
+TARGET_DIR = "/opt/raizen/data/xls/"
 TARGET_FILE = "vendas-combustiveis-m3.xls"
 SOURCE_FILE = "https://github.com/raizen-analytics/data-engineering-test/raw/master/assets/vendas-combustiveis-m3.xls"
 

@@ -5,7 +5,7 @@ import os
 
 
 def convert_to_parquet(**op_kwargs):
-  SOURCE_XLSX_FILE = "/opt/raizen/data/vendas-combustiveis-m3.xlsx"
+  SOURCE_XLSX_FILE = "/opt/raizen/data/xls/vendas-combustiveis-m3.xls"
   CSV_FILE = "/opt/raizen/data/csv/" + op_kwargs['table_name'] + "_vendas-combustiveis-m3.csv"
 
   import pandas as pd

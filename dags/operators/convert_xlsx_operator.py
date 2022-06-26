@@ -6,6 +6,6 @@ class ConvertXlsxOperator(BashOperator):
 
     def __init__(self, source_file, target_dir, *args, **kwargs):
 
-        super(ConvertXlsxOperator, self).__init__(bash_command="soffice --convert-to xlsx " + source_file + " --outdir " + target_dir,  *args, **kwargs)
+        super(ConvertXlsxOperator, self).__init__(bash_command="soffice --convert-to xls " + source_file + " --outdir " + target_dir,  *args, **kwargs)
         self.source_file = source_file
         self.target_dir = target_dir
