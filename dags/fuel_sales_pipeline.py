@@ -19,10 +19,34 @@ def _verify_file_dowloaded():
 
   return 'needs_download_file'
 
+docs = """
+  ## fuel_sales_pipeline
+
+  #### Purpose
+
+  This DAG download fuel sales by Brazilian government's regulatory agency for oil/fuels,
+  ANP (Agência Nacional do Petróleo, Gás Natural e Biocombustíveis).,
+  performs necessary transformations,
+  and creates a set of parquet tables that can be used by analysts 
+
+  #### Outputs
+
+  This pipeline produces the following output tables:
+
+  - `oil_derivative` – Contains useful information about oil derivative sales.
+  - `diesel` – Contains useful inormation about diesel derivative sales.
+
+  #### Owner
+
+  For any questions or concerns, please contact 
+  [mavbvieira@gmail.com](mailto:mavbvieira@gmail.com).
+  """
+
 with DAG("fuel_sales_pipeline",
   start_date=datetime(2022, 6, 22),
   schedule_interval='@daily',
-  catchup=False 
+  catchup=False,
+  doc_md=docs
 ) as dag:
 
   verify_file_dowloaded = BranchPythonOperator(
